@@ -27,15 +27,34 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+    <test :time=10></test>
+    <ModelTest v-model="checked"></ModelTest>
+    <InjectTest ></InjectTest>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Provide } from 'vue-property-decorator';
+import Test from './Test.vue'
+import ModelTest from './ModelTest.vue'
+import InjectTest from './InjectTest.vue'
+import UserService from '../services/UserService'
 
-@Component
+
+@Component({
+  components: {
+    test: Test,
+    ModelTest,
+    InjectTest,
+  }
+})
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
+
+  // @Provide() myHttp = axios;
+  @Provide() userService = new UserService()
+
+  checked: boolean = false
 }
 </script>
 
